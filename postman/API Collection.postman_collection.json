@@ -1,0 +1,747 @@
+{
+	"info": {
+		"_postman_id": "5efc2a93-7832-4a74-9278-a360fc357705",
+		"name": "API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Setup",
+			"item": [
+				{
+					"name": "Setup Example Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e9e3a6e-1688-4781-a189-26661340fc0d",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"const client_id = response.client.client_id;",
+									"const client_secret = response.client.client_secret;",
+									"pm.environment.set(\"CLIENT_ID\", client_id);",
+									"pm.environment.set(\"CLIENT_SECRET\", client_secret);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/setup",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"setup"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "344d824a-4920-420c-8c90-6e526fc59763",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/me",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"me"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e9e3a6e-1688-4781-a189-26661340fc0d",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"ACCESS_TOKEN\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"password\",\n    \"username\": \"{{USERNAME_ADMIN}}\",\n    \"password\": \"{{PASSWORD}}\",\n    \"client_id\": \"{{CLIENT_ID}}\",\n    \"client_secret\": \"{{CLIENT_SECRET}}\"\n}\t"
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/v2/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Company Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "085dabe2-4817-4f6f-ba7d-fe3cb10530de",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"ACCESS_TOKEN\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"password\",\n    \"username\": \"{{USERNAME_COMPANY_ADMIN}}\",\n    \"password\": \"{{PASSWORD}}\",\n    \"client_id\": \"{{CLIENT_ID}}\",\n    \"client_secret\": \"{{CLIENT_SECRET}}\"\n}\t"
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/v2/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Customer 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2477414a-2fab-41d9-ae41-1cd99d86f0fe",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"ACCESS_TOKEN\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"password\",\n    \"username\": \"{{USERNAME_CUSTOMER}}1\",\n    \"password\": \"{{PASSWORD}}\",\n    \"client_id\": \"{{CLIENT_ID}}\",\n    \"client_secret\": \"{{CLIENT_SECRET}}\"\n}\t"
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/v2/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Customer 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4e29e42-7ef6-4523-a897-dbb100c2eced",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"ACCESS_TOKEN\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"password\",\n    \"username\": \"{{USERNAME_CUSTOMER}}2\",\n    \"password\": \"{{PASSWORD}}\",\n    \"client_id\": \"{{CLIENT_ID}}\",\n    \"client_secret\": \"{{CLIENT_SECRET}}\"\n}\t"
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/v2/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login As Customer 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88118d9c-ccd8-4833-a894-765589ab2a7b",
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"ACCESS_TOKEN\", response.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"password\",\n    \"username\": \"{{USERNAME_CUSTOMER}}3\",\n    \"password\": \"{{PASSWORD}}\",\n    \"client_id\": \"{{CLIENT_ID}}\",\n    \"client_secret\": \"{{CLIENT_SECRET}}\"\n}\t"
+						},
+						"url": {
+							"raw": "{{API_URL}}/oauth/v2/token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"oauth",
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "96b7c7ad-e03e-4f54-bf80-4563f9ddd719",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/orders",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60261bd2-0dd7-49a8-9a98-6370313cff72",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/orders/4",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"4"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Ship Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f271b3e-ffce-4b73-9a85-6dcd46a396cc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/orders/3/ship-order",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"3",
+								"ship-order"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "53cf5c1b-fa38-45eb-a5b6-de167e357b47",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"product\": 1,\n\t\"quantity\": 3,\n\t\"address\": \"Test Address\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/orders",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8bc581ee-0ef7-430a-9365-d83276b2073b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"address\": \"Updated address info\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/orders/4",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"4"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "22491df5-ffe8-44ed-93a3-eb49b546eb8a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/products",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "530826f6-2a07-46ee-91ab-c9055bbb5ab5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/products/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5357487c-2495-4a98-ba5c-78a2c7509af9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Simple Product\",\n\t\"description\": \"This is a simple product\",\n\t\"stock\": 50\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/products",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						},
+						"description": "{\n    \"client_id\": \"1_5p24drb5qbk04oggcw0c0ok8o4s48og4400gcwgwksgg8w8os4\",\n    \"client_secret\": \"4kged6at5uasc8osg0w4c4oo84og08c04kw4s00wkck40cos4s\"\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e5abc9ca-1c73-412c-97fa-3c0575966f49",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9270d26f-16c2-4fdf-b2d5-2b6248f2f142",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
